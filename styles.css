@@ -1,10 +1,48 @@
+/* ============================================
+   BASE STYLES
+   ============================================ */
+
 body {
-    background: linear-gradient(140deg, #f0f0f0, #c5ccdf);
+    position: relative;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 
-body.dark-mode {
-    background: linear-gradient(140deg, #313131, #12121f);
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 1s ease;
 }
+
+body::before {
+    background: linear-gradient(140deg, #c9cdd8, #f1f1f1);
+    opacity: 1;
+    z-index: -2;
+}
+
+body::after {
+    background: linear-gradient(140deg, #2d2d33, #0b0b1a);
+    opacity: 0;
+    z-index: -1;
+}
+
+body.dark-mode::before {
+    opacity: 0;
+}
+
+body.dark-mode::after {
+    opacity: 1;
+}
+
+/* ============================================
+   CONTAINER
+   ============================================ */
 
 .container {
     display: flex;
@@ -13,122 +51,176 @@ body.dark-mode {
     height: 100vh;
 }
 
+
+/* ============================================
+   BUTTON
+   ============================================ */
+
 .button {
+    position: relative;
     width: 480px;
     height: 200px;
-    background: linear-gradient(90deg, #5bc3ff, #255977);
     border-radius: 100px;
-    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.6);
-    position: relative;
     overflow: hidden;
     cursor: pointer;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.6);
+
 }
 
-body.dark-mode .button {
+.button::before,
+.button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 100px;
+    transition: opacity 1s ease;
+    z-index: 1;
+}
+
+.button::before {
+    background: linear-gradient(90deg, #5bc3ff, #255977);
+    opacity: 1;
+}
+
+.button::after {
     background: linear-gradient(140deg, #161625, #121220);
+    opacity: 0;
+}
+
+body.dark-mode .button::before {
+    opacity: 0;
+}
+
+body.dark-mode .button::after {
+    opacity: 1;
     box-shadow:
         inset 0px 15px 10px #10101b80,
         0 8px 20px rgba(0, 0, 0, 0.6),
         0 2px 5px rgba(0, 0, 0, 0.4);
 }
 
+/* ============================================
+   SUN / MOON
+   ============================================ */
+
 .sun-moon {
+    position: absolute;
+    left: 0;
+    z-index: 10;
+    width: 160px;
+    height: 160px;
+    margin: 20px;
     background-color: rgb(255, 183, 29);
+    border-radius: 100%;
     box-shadow:
         inset 0px 10px 4px rgb(199, 142, 20),
         inset 0px -8px 4px rgb(255, 206, 99),
         0 0 30px rgba(255, 183, 29, 0.5);
-    width: 160px;
-    height: 160px;
-    border-radius: 100%;
-    margin: 20px;
-    position: absolute;
     transform: rotate(180deg);
-    z-index: 10;
-    left: 0;
+    transition: left 1s, right 1s, transform 1s;
 }
 
 body.dark-mode .sun-moon {
     right: 0px;
-    left: auto;
+    left: calc(100% - 200px);
     background-color: rgb(206, 206, 206);
-    transform: rotate(0deg);
     box-shadow:
         inset 0px 10px 8px rgb(255, 255, 255),
         inset 0px -8px 8px #6e6e6e,
         0 0 40px rgba(220, 220, 220, 0.3);
+    transform: rotate(0deg);
 }
 
+
+/* ============================================
+   CRATERS
+   ============================================ */
+
 body.dark-mode .crater1 {
-    opacity: 1;
+    position: absolute;
     margin-top: 60px;
     margin-left: 22px;
     width: 60px;
     height: 60px;
     background-color: #8f8f8f;
     border-radius: 100%;
-    position: absolute;
     box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3);
+    opacity: 1;
 }
 
 body.dark-mode .crater2 {
-    opacity: 1;
+    position: absolute;
     margin-top: 25px;
     margin-left: 85px;
     width: 30px;
     height: 30px;
     background-color: #8f8f8f;
     border-radius: 100%;
-    position: absolute;
     box-shadow: inset 6px 6px 4px rgba(0, 0, 0, 0.3);
+    opacity: 1;
 }
 
 body.dark-mode .crater3 {
-    opacity: 1;
+    position: absolute;
     margin-top: 100px;
     margin-left: 95px;
     width: 20px;
     height: 20px;
     background-color: #8f8f8f;
     border-radius: 100%;
-    position: absolute;
     box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3);
+    opacity: 1;
 }
+
+
+/* ============================================
+   CLOUDS
+   ============================================ */
 
 .cloud {
     position: absolute;
     bottom: 0;
-    border-radius: 50%;
     background-color: rgb(245, 245, 245);
+    border-radius: 50%;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: bottom 1s, opacity 1s;
 }
 
 body.dark-mode .cloud {
     opacity: 0;
+    bottom: -200px;
 }
 
 .c1 {
+    z-index: 9;
     width: 250px;
     height: 250px;
     margin-bottom: -150px;
-    z-index: 9;
 }
 
 .c2 {
+    z-index: 8;
     width: 200px;
     height: 200px;
     margin-bottom: -100px;
     margin-left: 180px;
-    z-index: 8;
 }
 
 .c3 {
+    z-index: 7;
     width: 250px;
     height: 250px;
     margin-bottom: -100px;
     margin-left: 325px;
-    z-index: 7;
 }
+
+
+/* ============================================
+   STARS
+   ============================================ */
 
 .star {
     position: absolute;
@@ -137,23 +229,91 @@ body.dark-mode .cloud {
     background: rgba(228, 228, 228, 0.925);
     clip-path: polygon(50% 0%, 65% 25%, 100% 50%, 65% 75%,
             50% 100%, 35% 75%, 0% 50%, 35% 25%);
-    animation-fill-mode: both;
     opacity: 0;
+    transform: scale(0.5);
+    z-index: 5;
+    transition: opacity 1s ease, transform 5s ease;
 }
 
 body.dark-mode .star {
     opacity: 1;
+    transform: scale(1);
 }
 
-.s1 { width: 20px; height: 20px; top: 50px; left: 250px; }
-.s2 { width: 8px; height: 8px; top: 110px; left: 235px; }
-.s3 { width: 10px; height: 10px; top: 140px; left: 200px; }
-.s4 { width: 8px; height: 8px; top: 40px; left: 190px; }
-.s5 { width: 5px; height: 5px; top: 90px; left: 180px; }
-.s6 { width: 18px; height: 18px; top: 24px; left: 100px; }
-.s7 { width: 8px; height: 8px; top: 90px; left: 110px; }
-.s8 { width: 5px; height: 5px; top: 165px; left: 120px; }
-.s9 { width: 7px; height: 7px; top: 50px; left: 55px; }
-.s10 { width: 5px; height: 5px; top: 140px; left: 80px; }
-.s11 { width: 5px; height: 5px; top: 152px; left: 65px; }
 
+.s1 {
+    top: 50px;
+    left: 250px;
+    width: 20px;
+    height: 20px;
+}
+
+.s2 {
+    top: 110px;
+    left: 235px;
+    width: 8px;
+    height: 8px;
+}
+
+.s3 {
+    top: 140px;
+    left: 200px;
+    width: 10px;
+    height: 10px;
+}
+
+.s4 {
+    top: 40px;
+    left: 190px;
+    width: 8px;
+    height: 8px;
+}
+
+.s5 {
+    top: 90px;
+    left: 180px;
+    width: 5px;
+    height: 5px;
+}
+
+.s6 {
+    top: 24px;
+    left: 100px;
+    width: 18px;
+    height: 18px;
+}
+
+.s7 {
+    top: 90px;
+    left: 110px;
+    width: 8px;
+    height: 8px;
+}
+
+.s8 {
+    top: 165px;
+    left: 120px;
+    width: 5px;
+    height: 5px;
+}
+
+.s9 {
+    top: 50px;
+    left: 55px;
+    width: 7px;
+    height: 7px;
+}
+
+.s10 {
+    top: 140px;
+    left: 80px;
+    width: 5px;
+    height: 5px;
+}
+
+.s11 {
+    top: 152px;
+    left: 65px;
+    width: 5px;
+    height: 5px;
+}
